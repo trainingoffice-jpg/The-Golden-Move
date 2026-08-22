@@ -446,6 +446,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Close map modal by clicking backdrop
         mapModal.addEventListener('click', e => { if (e.target === mapModal) mapModal.classList.remove('active'); });
         document.getElementById('btn-play-again').addEventListener('click', () => location.reload());
+        document.getElementById('btn-continue').addEventListener('click', () => {
+            document.getElementById('overall-win-modal').classList.remove('active');
+            syncModalStats(); 
+            buildLevelGrid(); 
+            mapModal.classList.add('active');
+        });
         winModal.addEventListener('click', e => { /* do nothing - require button */ });
     }
 });

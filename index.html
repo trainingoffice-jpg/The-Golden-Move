@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>THE GOLDEN MOVE - Jewellery Showroom Puzzle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="window-light-beam"></div>
+    <div class="bg-prop prop-top-right"></div>
+    <div class="bg-prop prop-bottom-left"></div>
+
+    <div class="game-container">
+        <!-- Header -->
+        <header class="game-header">
+            <div class="brand">
+                <div class="brand-logo-icon">💎</div>
+                <div class="brand-text">
+                    <h1 class="game-title">THE GOLDEN MOVE</h1>
+                    <span class="game-subtitle">Showroom Puzzle</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" id="btn-map" title="Map & Level Select">
+                    <svg viewBox="0 0 24 24" width="26" height="26">
+                        <path fill="currentColor" d="M20.5 3l-6 2.25L9 3 3.5 5.25A.75.75 0 003 6v14.25c0 .54.52.93 1.04.75L9 18.75l5.5 2.25 5.5-2.25a.75.75 0 00.5-.75V3.75a.75.75 0 00-1-.75zM15 19.16l-4-1.64V4.84l4 1.64v12.68z"/>
+                    </svg>
+                </button>
+                <button class="icon-btn" id="btn-menu" title="Menu">
+                    <svg viewBox="0 0 24 24" width="26" height="26">
+                        <path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Demo Hint Banner (hidden for normal levels) -->
+        <div class="demo-hint" id="demo-hint" style="display:none;">
+            <span>🎓 DEMO — Drag the chair out of the way, then move the character to EXIT →</span>
+        </div>
+
+        <!-- Board -->
+        <main class="board-wrapper">
+            <div class="board-frame">
+                <div class="game-board" id="game-board">
+                    <div class="grid-overlay" id="grid-overlay"></div>
+                    <div class="pieces-layer" id="pieces-layer"></div>
+                    <div class="exit-marker" id="exit-marker">
+                        <div class="exit-sign">EXIT</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Controls -->
+        <footer class="game-controls">
+            <button class="btn-circle-control" id="btn-skip">
+                <div class="btn-circle-icon">
+                    <svg viewBox="0 0 24 24" width="22" height="22">
+                        <path fill="currentColor" d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                    </svg>
+                </div>
+                <span class="btn-label" id="lbl-skip">Skip (2)</span>
+            </button>
+            <button class="btn-circle-control" id="btn-undo" disabled>
+                <div class="btn-circle-icon">
+                    <svg viewBox="0 0 24 24" width="22" height="22">
+                        <path fill="currentColor" d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/>
+                    </svg>
+                </div>
+                <span class="btn-label" id="lbl-undo">Undo (3)</span>
+            </button>
+            <button class="btn-circle-control" id="btn-reset">
+                <div class="btn-circle-icon">
+                    <svg viewBox="0 0 24 24" width="22" height="22">
+                        <path fill="currentColor" d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                    </svg>
+                </div>
+                <span class="btn-label" id="lbl-reset">Reset (2)</span>
+            </button>
+        </footer>
+
+        <!-- Map Popup Modal -->
+        <div class="modal-overlay" id="map-modal">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h2 class="modal-title">🗺️ Showroom Map &amp; Stats</h2>
+                    <button class="modal-close" id="btn-close-map">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="stats-card">
+                        <div class="stat-item">
+                            <span class="stat-title">LEVEL</span>
+                            <span class="stat-big" id="modal-level-display">01</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-title">MOVES</span>
+                            <span class="stat-big" id="modal-moves-display">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-title">TIME</span>
+                            <span class="stat-big" id="modal-time-display">00:00</span>
+                        </div>
+                    </div>
+                    <h3 class="section-subtitle">Select Showroom Vault</h3>
+                    <div class="level-select-grid" id="level-select-grid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Win Modal -->
+        <div class="modal-overlay" id="win-modal">
+            <div class="modal-card win-card">
+                <div class="sparkles-banner">✨ 💎 ✨</div>
+                <h2 class="win-title">Awesome Move! ✨</h2>
+                <div class="win-stars">⭐⭐⭐</div>
+                <p class="win-stats" id="win-stats-text"></p>
+                <button class="btn-action" id="btn-next-level">NEXT LEVEL →</button>
+            </div>
+        </div>
+
+        <!-- Overall Game Complete Modal -->
+        <div class="modal-overlay" id="overall-win-modal">
+            <div class="modal-card win-card" style="border-color: #f39c12; box-shadow: 0 0 30px rgba(243, 156, 18, 0.5);">
+                <div class="sparkles-banner">🏆 🌟 🏆</div>
+                <h2 class="win-title" style="color: #f1c40f; font-size: 1.8rem;">CONGRATULATIONS!</h2>
+                <div class="section-subtitle" style="margin-bottom: 5px;">You have completed all 15 rounds!</div>
+                <div class="stats-card" style="width: 100%; justify-content: center; gap: 20px;">
+                    <div class="stat-item">
+                        <span class="stat-title">TOTAL STARS</span>
+                        <span class="stat-big" id="overall-stars" style="color: #ffd700;">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-title">TOTAL MOVES</span>
+                        <span class="stat-big" id="overall-moves">0</span>
+                    </div>
+                </div>
+                <button class="btn-action" id="btn-play-again" style="margin-top: 10px;">PLAY AGAIN</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="graphics.js"></script>
+    <script src="levels.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
